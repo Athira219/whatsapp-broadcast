@@ -12,10 +12,10 @@ const io = socketIO(server);
 app.use(express.json());
 app.use('/broadcast', broadcastRoutes);
 
-// Socket.IO setup
+// Initialize Socket.IO
 setupSocket(io);
 
-// Start server
+// Start the server
 const PORT = 3000;
 server.listen(PORT, () => {
   console.log(` Server running at http://localhost:${PORT}`);
