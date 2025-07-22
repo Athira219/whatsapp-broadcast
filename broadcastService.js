@@ -1,20 +1,21 @@
 const { getIO, getSocketId } = require('./socket');
 
-async function sendBroadcast(senderPhone, message, targetPhoneNumbers) {
-  const io = getIO();
+async function sendBroadcast(senderId, message, targetUserIds) {
+  const io = getIO(); 
+
   const results = [];
 
-  for (const phoneNumber of targetPhoneNumbers) {
-    const socketId = getSocketId(phoneNumber);
+  for (const userId of targetUserIds) {
+    const socketId = getSocketId(userId);
 
     if (socketId) {
       io.to(socketId).emit('receive_message', {
-        from: senderPhone,
+        from: senderId,
         message,
       });
-      results.push({ recipientPhone: phoneNumber, status: 'sent' });
+      results.push({ recipient: userId, status: 'sent' });
     } else {
-      results.push({ recipientPhone: phoneNumber, status: 'offline' });
+      results.push({ recipient: userId, status: 'offline' });
     }
   }
 

@@ -11,7 +11,7 @@ router.post('/send', async (req, res) => {
   } catch (error) {
     console.error('Broadcast Error:', error);
     res.status(500).json({ error: 'Broadcast failed' });
-  }
+  }  
 });
 
 module.exports = router;
